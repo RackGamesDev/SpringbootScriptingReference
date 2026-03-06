@@ -1,25 +1,22 @@
-FROM maven:3.9-eclipse-temurin-21-alpine AS build
+
+FROM maven:3.9.12-ibm-semeru-11-noble AS build
 
 WORKDIR /app
 
 COPY pom.xml .
-RUN mvn dependency:go-offline -B
+RUN mvn -B dependency:go-offline   # pulls all dependencies, skips tests
 
 COPY src ./src
-RUN mvn clean package -DskipTests -B
+RUN mvn -B clean package -DskipTests  # builds target/*.jar
 
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:8u482-b08-jre-ubi10-minimal
 
-ARG JAR_FILE=target/*.jar
 WORKDIR /app
 
-COPY --from=build /app/${JAR_FILE} app.jar
-
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
+COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
-
-HEALTHCHECK --interval=30s --timeout=5s CMD wget -qO- http://localhost:8080/actuator/health || exit 1
+HEALTHCHECK --interval=30s --timeout=5s \
+    CMD wget -qO- http://localhost:8080/actuator/health || exit 1
 
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","app.jar"]
