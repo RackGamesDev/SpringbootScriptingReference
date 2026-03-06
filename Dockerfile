@@ -1,5 +1,5 @@
 
-FROM maven:3.9.12-ibm-semeru-11-noble AS build
+FROM maven:3.9.12-ibm-semeru-21-noble AS build
 
 WORKDIR /app
 
@@ -9,7 +9,7 @@ RUN mvn -B dependency:go-offline   # pulls all dependencies, skips tests
 COPY src ./src
 RUN mvn -B clean package -DskipTests  # builds target/*.jar
 
-FROM eclipse-temurin:8u482-b08-jre-ubi10-minimal
+FROM eclipse-temurin:21-jre-ubi10-minimal
 
 WORKDIR /app
 
