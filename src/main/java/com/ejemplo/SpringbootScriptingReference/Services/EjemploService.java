@@ -16,13 +16,13 @@ public class EjemploService {
         this.servicio = genericoService;
     }
 
-    public void ejemplo() { //Servicio interno de la aplicacion
+    public int ejemplo(int numero) { //Servicio interno de la aplicacion
         //var externoService = new ExternoService(); //Es dependiente de otro servicio, esto no es bueno porque no se puede testear aisladamente y no es escalable
         //externoService.procesar(3);
-        servicio.procesar(4); //Asi si, su uso seria var servicio = new EjemploService(new ExternoService()); servicio.ejemplo();
-        
+        servicio.procesar(numero); //Asi si, su uso seria var servicio = new EjemploService(new ExternoService()); servicio.ejemplo();
+        return numero;
     }
-    
+     
     /*public void setServicio(GenericoService servicio) { //Si se hace con un setter es que la dependencia es opcional
         this.servicio = servicio;
     }*/

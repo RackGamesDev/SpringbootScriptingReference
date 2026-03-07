@@ -12,8 +12,8 @@ public class SpringbootScriptingReferenceApplication {
 	public static void main(String[] args) {
 		//Si se comenta esta linea y se pone otra cosa en su lugar, sera lo que se ejecute al abrir la aplicacion
 		ApplicationContext context = SpringApplication.run(SpringbootScriptingReferenceApplication.class, args); //Contenedor IOC
-		var servicio = context.getBean(EjemploService.class); //Haciendo un Bean (proceso) de Spring a partir del contenedor IOC
-		servicio.ejemplo(); //Usandolo
+		var servicio = context.getBean(EjemploService.class); //Haciendo un Bean (proceso) de Spring a partir del contenedor IOC, los Beans deben de ser clases con @Component/@Service, @Repository, @Controller
+		servicio.ejemplo(6); //Usandolo
 	}
 
 }
