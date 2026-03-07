@@ -1,5 +1,5 @@
 # SpringbootScriptingReference
-Lo básico de Spring y Springboot en español, enfocado en Backend
+Lo básico de Spring y Springboot en español, enfocado en Backend usando Maven
 
 # GUIDE
 Ver up.sh

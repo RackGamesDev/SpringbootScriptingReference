@@ -1,0 +1,50 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Dependencias",
+      "type": "shell",
+      "command": "./mvnw dependency:resolve",
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+        "label": "Docker iniciar",
+        "type": "shell",
+        "command": "docker compose up",
+        "presentation": {
+            "reveal": "always",
+        }
+    },
+    {
+        "label": "Docker terminar",
+        "type": "shell",
+        "command": "docker compose down",
+        "presentation": {"reveal": "always"}
+    },
+    {
+        "label": "Package Maven",
+        "type": "shell",
+        "command": "./mvnw clean package -DskipTests",
+        "group": "build",
+        "problemMatcher": []
+    },
+    {
+        "label": "Clean install",
+        "type": "shell",
+        "command": "./mvnw clean install -DskipTests",
+        "group": "build",
+        "problemMatcher": [
+            "$javac"
+        ]
+    },
+    {
+        "label": "Ejecutar",
+        "type": "shell",
+        "command": "./mvnw spring-boot:run",
+        "group": "test",
+        "presentation": { "reveal": "always" }
+    }
+
+  ]
+}

@@ -11,6 +11,18 @@ mvn archetype:generate \
   -Dpackage=com.ejemplo.SpringbootScriptingReference \
   -B
 
+#Inicializar
+mvn install
+./mvnw -U clean install
 
-#Ejecutar
+#Instalar dependencias
+#Ir a mvnrepository o central.sonatype y pegar en pom.xml <dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-web</artifactId><version>4.1.0-M2</version></dependency>
+./mvnw dependency:resolve
+mvn dependency:list
+
+#Compilar
+./mvnw clean package
+
+#Ejecutar (por defecto se abre en 8080, si no lo que ponga en application.properties)
 mvn spring-boot:run
+./mvnw spring-boot:run
