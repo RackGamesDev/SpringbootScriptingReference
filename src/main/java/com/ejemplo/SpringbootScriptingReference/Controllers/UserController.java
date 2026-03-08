@@ -2,6 +2,7 @@ package com.ejemplo.SpringbootScriptingReference.Controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import com.ejemplo.SpringbootScriptingReference.Services.UserService;
 @RequestMapping("/api/user")
 public class UserController {
     private final UserService svc;
+    @Autowired
     public UserController(UserService svc) {
         this.svc = svc;
     }
@@ -33,7 +35,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> create(@RequestBody CrearUserDTO dto) {
-        User creado = svc.create(dto.getNickname(), dto.getEmail());
+        User creado = svc.create(dto.getNickname(), dto.getEmail(), dto.getPublico(), dto.getEdad(), dto.getNombres());
         return ResponseEntity.status(201).body(creado);
     }
     

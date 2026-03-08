@@ -1,6 +1,6 @@
 package com.ejemplo.SpringbootScriptingReference.Models;
 
-import java.util.Objects;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,6 +13,7 @@ import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +21,7 @@ import lombok.Setter;
 //Entidad asociada a la base de datos (se debe hacer el .sql en resources/db/migration igualmente, a no ser que este configurado como en el application.yml (create/create-drop/updte/validate/none))
 @Entity
 @Table(name="USERS")
-@Data @NoArgsConstructor @AllArgsConstructor
+@Data @NoArgsConstructor @AllArgsConstructor @EqualsAndHashCode
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -32,10 +33,25 @@ public class User {
     @Setter
     private String nickname;
 
-    @Column(nullable=false)
+    @Column(nullable=false, unique=true)
     @Getter
     @Setter
     private String email;
+
+    @Column(nullable=true)
+    @Getter
+    @Setter
+    private Integer edad;
+
+    @Column(nullable=false)
+    @Getter
+    @Setter
+    private Boolean publico;
+
+    @Column(nullable=true)
+    @Getter
+    @Setter
+    private List<String> nombres;
 
     //public User() {}
 
@@ -53,17 +69,17 @@ public class User {
 
     @PrePersist
     protected void onCreate() {
-        /////
+        //Codigo a ejecutar antes de la insercion sql
     }
     @PreUpdate
     protected void onUpdate() {
-        /////
+        //Codigo a ejecutar antes de el update sql
     }
     @PostPersist void afterCreate() {
-        /////
+        //Codigo a ejecutar despues de la insercion sql
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User that)) return false;
@@ -73,7 +89,7 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
+    }*/
 
     @Override
     public String toString() {

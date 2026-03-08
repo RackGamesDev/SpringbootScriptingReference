@@ -1,8 +1,11 @@
 package com.ejemplo.SpringbootScriptingReference.DTOs;
 
+import java.util.List;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +15,8 @@ import lombok.NoArgsConstructor;
 
 @Data @Builder @AllArgsConstructor @NoArgsConstructor
 public class CrearUserDTO {
-
+    
+    @Null
     private Long id;
 
     @NotBlank(message="No puede estar en blanco")
@@ -25,5 +29,15 @@ public class CrearUserDTO {
     @NotNull
     @Getter
     private String email;
+
+    @NotNull
+    @Getter
+    private Boolean publico;
+
+    @Getter
+    private Integer edad;
+
+    @Getter
+    private List<String> nombres;
 
 }
