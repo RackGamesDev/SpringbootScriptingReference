@@ -2,11 +2,15 @@ package com.ejemplo.SpringbootScriptingReference.Services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ejemplo.SpringbootScriptingReference.Models.User;
+import com.ejemplo.SpringbootScriptingReference.Models.UserSpecs;
 import com.ejemplo.SpringbootScriptingReference.Repositories.UserRepository;
 
 @Service
@@ -15,6 +19,8 @@ public class UserService { //Servicio para las operaciones sobre una
     public UserService(UserRepository userRepo) {
         this.userRepo = userRepo;
     }
+
+    //Operaciones varias cubriendo varios casos sobre la base de datos:
 
     @Transactional(readOnly=true) //Quiere decir qeu la operacion no tendra efecto hasta que termine exitosamente (db transaction)
     public List<User> listAll() {
@@ -43,15 +49,19 @@ public class UserService { //Servicio para las operaciones sobre una
         return userRepo.findByEmail(email);
     }
 
-    @Transactional
-    public Optional<User> update(Long id,
-                                 Optional<String> nickname,
-                                 Optional<String> email,
-                                 Optional<String> contrasegna,
-                                 Optional<Boolean> publico,
-                                 Optional<Integer> edad,
-                                 Optional<List<String>> nombres) {
+    @Transactional(readOnly=true)
+    public List<String> consultaCompleja(String email, Integer edad) {
+        return userRepo.findAll(
+        Specification.where(UserSpecs.emailIs(email))
+                     .and(UserSpecs.ageEquals(edad)),
+        Sort.by(Sort.Direction.ASC, "nickname"))
+                    .stream()
+                    .map(User::getNickname)
+                    .collect(Collectors.toList());
+    }
 
+    @Transactional
+    public Optional<User> update(Long id,Optional<String> nickname,Optional<String> email,Optional<String> contrasegna,Optional<Boolean> publico,Optional<Integer> edad,Optional<List<String>> nombres) {
         return userRepo.findById(id).map(user -> {
             nickname.ifPresent(user::setNickname);
             email.ifPresent(user::setEmail);

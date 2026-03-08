@@ -2,7 +2,7 @@
 Lo básico de Spring y Springboot en español, enfocado en Backend usando Maven
 
 # GUIDE
-Ver up.sh
+Ver comandos.sh
 
 ## License
 This project is licensed under the GNU General Public License v3.0.  
