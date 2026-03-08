@@ -53,6 +53,11 @@ public class User {
     @Setter
     private List<String> nombres;
 
+    @Column(nullable=false)
+    @Getter
+    @Setter
+    private String contrasegna;
+
     //public User() {}
 
     /*public User(String nickname, String email) {

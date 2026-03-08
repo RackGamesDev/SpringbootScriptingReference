@@ -1,6 +1,7 @@
 package com.ejemplo.SpringbootScriptingReference.Controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +21,12 @@ import com.ejemplo.SpringbootScriptingReference.Services.UserService;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
-    private final UserService svc;
+    /*private final UserService svc;
     @Autowired
     public UserController(UserService svc) {
         this.svc = svc;
-    }
+    }*/
+    @Autowired private UserService svc;
 
     //Rutas referentes a la entidad de usuario
 
@@ -35,7 +37,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> create(@RequestBody CrearUserDTO dto) {
-        User creado = svc.create(dto.getNickname(), dto.getEmail(), dto.getPublico(), dto.getEdad(), dto.getNombres());
+        User creado = svc.create(dto.getNickname(), dto.getEmail(), dto.getContrasegna(), dto.getPublico(), Optional.ofNullable(dto.getEdad()), Optional.ofNullable(dto.getNombres()));
         return ResponseEntity.status(201).body(creado);
     }
     
