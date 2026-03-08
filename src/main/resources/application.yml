@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/base
+    username: usuario
+    password: 123456789
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update   # let Flyway/Liquibase handle schema creation
+    show-sql: true     # prints SQL to console (dev only)

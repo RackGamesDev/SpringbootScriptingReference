@@ -2,5 +2,6 @@
     "java.compile.nullAnalysis.mode": "disabled",
     "window.titleBarStyle": "native",
     "workbench.enableGPU": false,
-    "editor.fontLigatures": false
+    "editor.fontLigatures": false,
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

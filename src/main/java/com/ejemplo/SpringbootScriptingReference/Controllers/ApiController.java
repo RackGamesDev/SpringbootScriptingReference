@@ -2,7 +2,9 @@ package com.ejemplo.SpringbootScriptingReference.Controllers;
 
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ejemplo.SpringbootScriptingReference.DTOs.ObjetoDTO;
 import com.ejemplo.SpringbootScriptingReference.Services.EjemploService;
+
+import jakarta.validation.Valid;
 
 
 @RestController //La diferencia con el @Controller normal es que este devuelve json a modo de api rest y el controller asecas devuelve vistas
@@ -55,6 +60,10 @@ public class ApiController {
         );
     }
 
-    
+    @PostMapping("/validado")
+    public ResponseEntity<ObjetoDTO> validar(@Valid @RequestBody ObjetoDTO body) { //Obliga a que el body cumpla un DTO y devuelve un objeto de ese mismo tipo
+        body.setId(4l);
+        return new ResponseEntity<>(body, HttpStatus.CREATED);
+    }
     
 }
