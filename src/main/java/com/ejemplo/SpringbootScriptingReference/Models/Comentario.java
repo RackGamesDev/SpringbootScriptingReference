@@ -38,6 +38,7 @@ public class Comentario {
     @Setter
     private String texto;
 
+    //Relacion 1:N en la base de datos, pero en Java se vera como un campo de tipo User
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="user_id", nullable = false)
     @JsonIgnoreProperties({"comentarios", "contrasegna", "hibernateLazyInitializer"})

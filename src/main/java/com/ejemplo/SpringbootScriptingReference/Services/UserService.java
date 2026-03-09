@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ejemplo.SpringbootScriptingReference.Models.User;
 import com.ejemplo.SpringbootScriptingReference.Models.UserSpecs;
 import com.ejemplo.SpringbootScriptingReference.Repositories.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class UserService { //Servicio para las operaciones sobre una
@@ -19,11 +22,17 @@ public class UserService { //Servicio para las operaciones sobre una
     @Autowired private BCryptPasswordEncoder passwordEncoder;
     @Autowired private JwtService jwtService;
 
+    public static final int TAMAGNO_PAGINA = 50;
+
     //Operaciones varias cubriendo varios casos sobre la base de datos:
 
     @Transactional(readOnly=true) //Quiere decir que la operacion no tendra efecto hasta que termine exitosamente (db transaction)
-    public List<User> listAll() {
-        return userRepo.findByPublicoTrue().stream().peek(user -> user.setContrasegna(null)).collect(Collectors.toList());
+    public Page<User> listAll(int pagina) {
+    Pageable pageable = PageRequest.of(pagina, TAMAGNO_PAGINA, Sort.by("nickname").ascending());
+    return userRepo.findByPublicoTrue(pageable).map(user -> {
+            user.setContrasegna(null);
+            return user;
+        });
     }
 
     @Transactional

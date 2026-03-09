@@ -26,7 +26,6 @@ import jakarta.servlet.http.HttpServletRequest;
 @RequestMapping("/api/comment")
 public class ComentarioController {
     @Autowired private ComentarioService svcComentario;
-    @Autowired private UserService svcUser;
     //@Autowired private UserController userController;
 
     @GetMapping("/{id}")

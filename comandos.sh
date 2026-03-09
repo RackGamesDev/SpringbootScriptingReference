@@ -24,5 +24,12 @@ mvn dependency:list
 ./mvnw clean package
 
 #Ejecutar (por defecto se abre en 8080, si no lo que ponga en application.properties)
-mvn spring-boot:run
+mvn spring-boot:run -DskipTests
 ./mvnw spring-boot:run
+
+#Ejecutar tests
+mvn test
+
+#Compilar y ejecutar (cambiar antes parametros de dev a prod)
+mvn package -DskipTests
+java -jar target/SpringbootScriptingReference-0.0.1-SNAPSHOT.jar
