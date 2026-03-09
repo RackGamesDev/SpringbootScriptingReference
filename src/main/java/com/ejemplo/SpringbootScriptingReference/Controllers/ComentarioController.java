@@ -14,12 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-
 import com.ejemplo.SpringbootScriptingReference.DTOs.CrearComentarioDTO;
 import com.ejemplo.SpringbootScriptingReference.Models.Comentario;
 import com.ejemplo.SpringbootScriptingReference.Services.ComentarioService;
-import com.ejemplo.SpringbootScriptingReference.Services.UserService;
-
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController

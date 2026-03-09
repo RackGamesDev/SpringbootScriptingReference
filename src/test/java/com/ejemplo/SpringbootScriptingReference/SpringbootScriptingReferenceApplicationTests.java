@@ -15,7 +15,7 @@ import com.ejemplo.SpringbootScriptingReference.Models.*;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class SpringbootScriptingReferenceApplicationTests {
+class SpringbootScriptingReferenceApplicationTests { //Algunos tests sencillos con junit representando el flujo de la app
 
 	@Autowired private UserService userService;
     @Autowired private ComentarioService comentarioService;
