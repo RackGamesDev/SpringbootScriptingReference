@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -40,6 +41,7 @@ public class Comentario {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="user_id", nullable = false)
     @JsonIgnoreProperties({"comentarios", "contrasegna", "hibernateLazyInitializer"})
+    //@JsonIgnore
     private User user;
 
     @Column(nullable=false, updatable=false)

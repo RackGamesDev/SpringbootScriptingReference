@@ -32,7 +32,7 @@ public class UserController {
     }*/
     @Autowired private UserService svc;
 
-    private Long getAuthenticatedUser(HttpServletRequest request) throws ResponseStatusException { //Manejador para el middleware
+    public static Long getAuthenticatedUser(HttpServletRequest request) throws ResponseStatusException { //Manejador para el middleware
         Long userId = (Long) request.getAttribute("userId");
         if (userId == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "No autenticado");
         return userId;
