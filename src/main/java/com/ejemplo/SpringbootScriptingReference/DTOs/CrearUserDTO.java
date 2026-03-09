@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,27 +23,30 @@ public class CrearUserDTO {
 
     @NotBlank(message="No puede estar en blanco")
     @Size(max=200, message="Maximo 200")
-    @NotNull
+    @NotNull(message="Debe de incluir el nickname")
     @Getter
     private String nickname;
 
-    @Email
-    @NotNull
+    @Email(message="El email debe de ser valido")
+    @NotNull(message="Debe incluir el email")
     @Getter
     private String email;
 
-    @NotNull
+    @NotNull(message="Debe incluir si es publico o no")
     @Getter
     private Boolean publico;
 
     @Getter
+    @Positive(message="Debe ser positivo")
+    @Size(max=200, message="Maximo 200")
     private Integer edad;
 
     @Getter
+    @NonBlankList(message="Debe de ser un array de strings")
     private List<String> nombres;
 
     @Getter
-    @NotNull
+    @NotNull(message="Debe incluir la contrasegna")
     @Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{8,}$\n",message="Contrasegna segura")
     private String contrasegna;
 
