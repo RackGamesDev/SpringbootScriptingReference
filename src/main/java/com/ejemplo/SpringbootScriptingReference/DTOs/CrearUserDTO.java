@@ -1,8 +1,8 @@
 package com.ejemplo.SpringbootScriptingReference.DTOs;
 
 import java.util.List;
-
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
@@ -24,6 +24,7 @@ public class CrearUserDTO {
     @NotBlank(message="No puede estar en blanco")
     @Size(max=200, message="Maximo 200")
     @NotNull(message="Debe de incluir el nickname")
+    //@UniqueElements(message="El nickname ya esta en uso")
     @Getter
     private String nickname;
 
@@ -38,7 +39,7 @@ public class CrearUserDTO {
 
     @Getter
     @Positive(message="Debe ser positivo")
-    @Size(max=200, message="Maximo 200")
+    @Max(value = 150, message = "Debe de ser menos de 150")
     private Integer edad;
 
     @Getter
@@ -47,7 +48,7 @@ public class CrearUserDTO {
 
     @Getter
     @NotNull(message="Debe incluir la contrasegna")
-    @Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{8,}$\n",message="Contrasegna segura")
+    @Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{8,}$",message="Contrasegna segura")
     private String contrasegna;
 
 }

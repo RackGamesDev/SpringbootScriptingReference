@@ -1,5 +1,6 @@
 package com.ejemplo.SpringbootScriptingReference.Repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,6 +12,7 @@ public interface UserRepository extends JpaRepository<User, Object>, JpaSpecific
     //Los nombres son estrictos para que pueda reconocer que se busca y como. <find/read/query/count/get><nombre de propiedad>By<nombre propiedad> por ejemplo
     Optional<User> findByNickname(String nickname);
     Optional<User> findByEmail(String email);
+    List<User> findByPublicoTrue();
     //List<String> findNicknameAndEdadByEmailAndNickname(String email, String nickname);
 
 }

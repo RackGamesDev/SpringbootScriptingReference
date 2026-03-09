@@ -2,7 +2,11 @@ package com.ejemplo.SpringbootScriptingReference.Models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,11 +25,12 @@ import lombok.Setter;
 //Entidad asociada a la base de datos (se debe hacer el .sql en resources/db/migration igualmente, a no ser que este configurado como en el application.yml (create/create-drop/updte/validate/none))
 @Entity
 @Table(name="USERS")
-@Data @NoArgsConstructor @AllArgsConstructor @EqualsAndHashCode
+@Data @NoArgsConstructor @AllArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Getter
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(nullable=false, unique=true)
@@ -51,11 +56,14 @@ public class User {
     @Column(nullable=true)
     @Getter
     @Setter
+    @ElementCollection
+    @CollectionTable(name="user_nombres")
     private List<String> nombres;
 
     @Column(nullable=false)
     @Getter
     @Setter
+    @JsonIgnore
     private String contrasegna;
 
     //public User() {}

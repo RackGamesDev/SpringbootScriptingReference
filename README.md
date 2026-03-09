@@ -1,5 +1,5 @@
 # SpringbootScriptingReference
-Lo básico de Spring y Springboot en español, enfocado en Backend usando Maven
+Lo básico de Spring y Springboot en español, enfocado en Backend usando Maven. Este repositorio no es una guía de buenas prácticas ni un proyecto como tal, si no archivos de código para tomar como referencia a la hora de empezar un proyecto con Springboot
 
 # GUIDE
 Ver comandos.sh
