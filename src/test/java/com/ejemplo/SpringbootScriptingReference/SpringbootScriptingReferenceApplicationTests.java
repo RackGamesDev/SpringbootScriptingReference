@@ -2,18 +2,14 @@ package com.ejemplo.SpringbootScriptingReference;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import com.ejemplo.SpringbootScriptingReference.Models.Comentario;
 import com.ejemplo.SpringbootScriptingReference.Services.ComentarioService;
 import com.ejemplo.SpringbootScriptingReference.Services.UserService;
-
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.Arrays;
 import java.util.Optional;
 import com.ejemplo.SpringbootScriptingReference.Models.*;
 
@@ -31,13 +27,13 @@ class SpringbootScriptingReferenceApplicationTests {
     @Test
     @Order(1)
     void crearUsuario() {
-        User user = userService.create(
+			User user = userService.create(
             "testNickname",
             "test@email.com",
             "Password1!",
             true,
             Optional.of(25),
-            Optional.empty()
+            Optional.of(Arrays.asList("aa", "bb", "cc"))
         );
 
         assertNotNull(user.getId());
