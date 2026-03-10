@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ejemplo.SpringbootScriptingReference.DTOs.ObjetoDTO;
+import com.ejemplo.SpringbootScriptingReference.DTOs.ObjetoDto;
 import com.ejemplo.SpringbootScriptingReference.Services.EjemploService;
 
 import jakarta.validation.Valid;
@@ -61,7 +61,7 @@ public class ApiController {
     }
 
     @PostMapping("/validado")
-    public ResponseEntity<ObjetoDTO> validar(@Valid @RequestBody ObjetoDTO body) { //Obliga a que el body cumpla un DTO y devuelve un objeto de ese mismo tipo
+    public ResponseEntity<ObjetoDto> validar(@Valid @RequestBody ObjetoDto body) { //Obliga a que el body cumpla un DTO y devuelve un objeto de ese mismo tipo
         body.setId(4l);
         return new ResponseEntity<>(body, HttpStatus.CREATED);
     }

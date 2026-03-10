@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-import com.ejemplo.SpringbootScriptingReference.DTOs.CrearUserDTO;
-import com.ejemplo.SpringbootScriptingReference.DTOs.LoginDTO;
+import com.ejemplo.SpringbootScriptingReference.DTOs.CrearUserDto;
+import com.ejemplo.SpringbootScriptingReference.DTOs.LoginDto;
 import com.ejemplo.SpringbootScriptingReference.Models.User;
 import com.ejemplo.SpringbootScriptingReference.Services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,7 +41,7 @@ public class UserController {
     //Rutas referentes a la entidad de usuario
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getOne(HttpServletRequest request, @PathVariable Long id) {
+    public ResponseEntity<CrearUserDto> getOne(HttpServletRequest request, @PathVariable Long id) {
         Optional<User> usuario = svc.getOne(id);
         if (usuario.isEmpty()) return ResponseEntity.notFound().build();
         User user = usuario.get();
@@ -50,7 +50,7 @@ public class UserController {
         if (idSesion == null || !idSesion.equals(id)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(new CrearUserDto(user.getNickname(), user.getEmail(), user.getPublico(), user.getEdad(), user.getNombres(), null));
     }
 
     @GetMapping
@@ -59,13 +59,13 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> create(@RequestBody CrearUserDTO dto) {
+    public ResponseEntity<User> create(@RequestBody CrearUserDto dto) {
         User creado = svc.create(dto.getNickname(), dto.getEmail(), dto.getContrasegna(), dto.getPublico(), Optional.ofNullable(dto.getEdad()), Optional.ofNullable(dto.getNombres()));
         return ResponseEntity.status(201).body(creado);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<User> update(HttpServletRequest request, @PathVariable Long id, @RequestBody CrearUserDTO dto) {
+    public ResponseEntity<User> update(HttpServletRequest request, @PathVariable Long id, @RequestBody CrearUserDto dto) {
         Long idSesion = getAuthenticatedUser(request);
         if (!idSesion.equals(id)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "No puedes editar a otro usuario");
@@ -84,7 +84,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody LoginDTO dto) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody LoginDto dto) {
         return svc.login(dto.getEmail(), dto.getContrasegna())
             .map(token -> ResponseEntity.ok(Map.of("token", token)))
             .orElse(ResponseEntity.status(401).build());

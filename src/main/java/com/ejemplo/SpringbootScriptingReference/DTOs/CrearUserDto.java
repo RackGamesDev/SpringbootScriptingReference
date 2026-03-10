@@ -16,10 +16,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data @Builder @AllArgsConstructor @NoArgsConstructor
-public class CrearUserDTO {
+public class CrearUserDto {
     
-    @Null
-    private Long id;
+    //@Null
+    //private Long id;
 
     @NotBlank(message="No puede estar en blanco")
     @Size(max=200, message="Maximo 200")

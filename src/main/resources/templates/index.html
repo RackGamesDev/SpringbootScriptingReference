@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"> <!--Usando Thymeleaf para html dinamico, hay que agnadir esto-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>prueba</h1>
+    <p th:text="'hola' + ${name}"></p> <!--Usando variables del controlador-->
+</body>
+</html>

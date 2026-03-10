@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-import com.ejemplo.SpringbootScriptingReference.DTOs.CrearComentarioDTO;
+import com.ejemplo.SpringbootScriptingReference.DTOs.CrearComentarioDto;
 import com.ejemplo.SpringbootScriptingReference.Models.Comentario;
 import com.ejemplo.SpringbootScriptingReference.Services.ComentarioService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,7 +36,7 @@ public class ComentarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Comentario> crear(HttpServletRequest request, @RequestBody CrearComentarioDTO dto) {
+    public ResponseEntity<Comentario> crear(HttpServletRequest request, @RequestBody CrearComentarioDto dto) {
         Long idSesion = UserController.getAuthenticatedUser(request);
         Comentario comentario = svcComentario.crear(dto.getContenido(), idSesion);
         return ResponseEntity.ok().body(comentario);

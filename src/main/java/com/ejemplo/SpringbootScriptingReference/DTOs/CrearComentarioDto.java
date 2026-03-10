@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class CrearComentarioDTO {
+public class CrearComentarioDto {
     @NotNull
     private String contenido;
 }

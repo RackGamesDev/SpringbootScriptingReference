@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 //Clase que define normas, util para validar peticiones en un controller
 //Tambien define datos entre capas, se podria usar como objeto
 @Data @Builder @AllArgsConstructor @NoArgsConstructor
-public class ObjetoDTO {
+public class ObjetoDto {
 
     private Long id;
 
