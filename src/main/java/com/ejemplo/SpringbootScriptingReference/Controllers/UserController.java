@@ -2,8 +2,9 @@ package com.ejemplo.SpringbootScriptingReference.Controllers;
 
 import java.util.Map;
 import java.util.Optional;
-import org.springframework.data.domain.Page;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+
 import com.ejemplo.SpringbootScriptingReference.DTOs.CrearUserDto;
 import com.ejemplo.SpringbootScriptingReference.DTOs.LoginDto;
+import com.ejemplo.SpringbootScriptingReference.Mappers.UserMapper;
 import com.ejemplo.SpringbootScriptingReference.Models.User;
 import com.ejemplo.SpringbootScriptingReference.Services.UserService;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
@@ -31,6 +35,7 @@ public class UserController {
         this.svc = svc;
     }*/
     @Autowired private UserService svc;
+    @Autowired private UserMapper userMapper;
 
     public static Long getAuthenticatedUser(HttpServletRequest request) throws ResponseStatusException { //Manejador para el middleware
         Long userId = (Long) request.getAttribute("userId");
@@ -45,17 +50,20 @@ public class UserController {
         Optional<User> usuario = svc.getOne(id);
         if (usuario.isEmpty()) return ResponseEntity.notFound().build();
         User user = usuario.get();
-        if (user.getPublico()) return ResponseEntity.ok(user);
+        //if (user.getPublico()) return ResponseEntity.ok(new CrearUserDto(user.getNickname(), user.getEmail(), user.getPublico(), user.getEdad(), user.getNombres(), null));
+        if (user.getPublico()) return ResponseEntity.ok(userMapper.toDto(user));
         Long idSesion = (Long) request.getAttribute("userId");
         if (idSesion == null || !idSesion.equals(id)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
-        return ResponseEntity.ok(new CrearUserDto(user.getNickname(), user.getEmail(), user.getPublico(), user.getEdad(), user.getNombres(), null));
+        //return ResponseEntity.ok(new CrearUserDto(user.getNickname(), user.getEmail(), user.getPublico(), user.getEdad(), user.getNombres(), null));
+        return ResponseEntity.ok(userMapper.toDto(user));
     }
 
     @GetMapping
     public ResponseEntity<Page<User>> getAll(@RequestParam(defaultValue = "0") int pagina) {
         return ResponseEntity.ok(svc.listAll(pagina));
+        //return ResponseEntity.ok(svc.listAll(pagina).stream().map(user -> userMapper.toDto(user)).toList());
     }
 
     @PostMapping

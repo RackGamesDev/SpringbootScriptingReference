@@ -1,11 +1,13 @@
 package com.ejemplo.SpringbootScriptingReference.DTOs;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -40,6 +42,7 @@ public class CrearUserDto {
     @Getter
     @Positive(message="Debe ser positivo")
     @Max(value = 150, message = "Debe de ser menos de 150")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer edad;
 
     @Getter
@@ -49,6 +52,7 @@ public class CrearUserDto {
     @Getter
     @NotNull(message="Debe incluir la contrasegna")
     @Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{8,}$",message="Contrasegna segura")
+    //@JsonIgnore
     private String contrasegna;
 
 }

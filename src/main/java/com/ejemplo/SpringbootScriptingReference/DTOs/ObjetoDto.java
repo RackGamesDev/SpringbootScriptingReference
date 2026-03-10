@@ -12,13 +12,17 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 //Clase que define normas, util para validar peticiones en un controller
 //Tambien define datos entre capas, se podria usar como objeto
 @Data @Builder @AllArgsConstructor @NoArgsConstructor
 public class ObjetoDto {
 
+    @Getter
+    @Setter
     private Long id;
 
     //Ejemplos de validaciones:
@@ -30,6 +34,7 @@ public class ObjetoDto {
 
     @Email
     @NotNull
+    //@JsonProperty("correo")
     private String email;
 
     @Min(value=0,message="Debe ser positivo")
