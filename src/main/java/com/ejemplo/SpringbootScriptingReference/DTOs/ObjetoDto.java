@@ -1,5 +1,7 @@
 package com.ejemplo.SpringbootScriptingReference.DTOs;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -47,6 +49,7 @@ public class ObjetoDto {
     private String url;
 
     @PastOrPresent(message="Fecha pasada")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private java.time.LocalDateTime fecha; //Opcional
 
     @Positive(message="Debe ser positivo")

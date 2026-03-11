@@ -9,4 +9,8 @@ import com.ejemplo.SpringbootScriptingReference.Models.Comentario;
 
 public interface ComentarioRepository extends JpaRepository<Comentario, Object>, JpaSpecificationExecutor<Comentario>{
     List<Comentario> findByUserId(Long userId);
+
+    //@EntityGraph(attributePaths="contenido")
+    //@Query("SELECT contenido FROM Comentario c")
+    //List<Comentario> consultaEspecifica();
 }

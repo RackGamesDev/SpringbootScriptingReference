@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import com.ejemplo.SpringbootScriptingReference.DTOs.CrearComentarioDto;
 import com.ejemplo.SpringbootScriptingReference.Models.Comentario;
 import com.ejemplo.SpringbootScriptingReference.Services.ComentarioService;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
@@ -27,12 +30,17 @@ public class ComentarioController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Comentario> getOne(@PathVariable Long id) {
-        return ResponseEntity.ok(svcComentario.getOne(id).orElse(null));
+        Comentario comentario = svcComentario.getOne(id).orElse(null);
+        if (comentario == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(comentario);
+        //return ResponseEntity.ok(svcComentario.getOne(id).orElse(null));
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<List<Comentario>> getFromUser(@PathVariable Long id) {
-        return ResponseEntity.ok(svcComentario.verDeUsuario(id));
+    public ResponseEntity<List<Comentario>> getFromUser(@PathVariable Long id, UriComponentsBuilder uriBuilder) {
+        var uri = uriBuilder.path("/users/{id}").buildAndExpand(id).toUri();
+        //return ResponseEntity.ok(svcComentario.verDeUsuario(id));
+        return ResponseEntity.created(uri).body(svcComentario.verDeUsuario(id));
     }
 
     @PostMapping

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ejemplo.SpringbootScriptingReference.DTOs.ObjetoDto;
@@ -50,7 +51,7 @@ public class ApiController {
     }
 
     @DeleteMapping("/borrar/{id}")
-    public Map<String, Object> borrar(@RequestHeader(value="X-header-ejemplo",required=false) String header, @PathVariable String id) {
+    public Map<String, Object> borrar(@RequestHeader(value="X-header-ejemplo",required=false) String header, @PathVariable String id, @RequestParam(required=false,defaultValue="",name="id2") String id2) {
 
         return Map.of(
                 "message", "funciona",
